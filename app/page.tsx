@@ -32,3 +32,23 @@ import '../styles/globals.css'
             </svg>
           </a>
         </div>
+        <div className="hidden lg:mt-0 lg:col-span-5 lg:flex justify-around gap-5 pb-20">
+          <div className="flex flex-col items-center h-48">
+            <img 
+              src="https://imgs.search.brave.com/dyyrSJucH0LG3bsMXX8RR_4OJgje1opM6W2o9rAqzzc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/YWRhemluZy5jb20v/d3AtY29udGVudC91/cGxvYWRzLzIwMjIv/MTIvSGFycnktUG90/dGVyLUJvb2stQ292/ZXJzLVByaXNvbmVy/cy1vZi1BemthYmFu/LXVzLmpwZw" 
+              alt="Mockup 1" 
+              className="h-72 w-60 object-cover rounded-t-full"
+            />
+            <p className='text-black text-sm font-bold'>The Half Blood</p>
+            <span className="mt-2 text-gray-800">Harry Potter</span>
+          </div>
+
+          <div className="flex flex-col items-center h-48">
+            <p className='text-black text-sm font-bold'>Prison of Azkban</p>
+            <span className="mt-2 text-gray-800">Frank Kafka</span>
+            <img 
+              src="https://imgs.search.brave.com/O-niKVRrfx0FfkSJnO3F-OxUo_RBxVloWKKqowj8HZQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/YWRhemluZy5jb20v/d3AtY29udGVudC91/cGxvYWRzLzIwMjIv/MTIvSGFycnktUG90/dGVyLUJvb2stQ292/ZXJzLVBoaWxvc29w/aGVycy1TdG9uZS11/cy0yLmpwZw" 
+              alt="Mockup 2" 
+              className="h-72 w-60 object-cover rounded-b-full"
+            />
+          </div>
