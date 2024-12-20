@@ -52,3 +52,20 @@ import '../styles/globals.css'
               className="h-72 w-60 object-cover rounded-b-full"
             />
           </div>
+          <div className="flex flex-col items-center h-48">
+            <img 
+              src="https://imgs.search.brave.com/oFjgc_DjV2z1cmdEJhK-mMLkk5P3Za1CHm5QWJ_DMOo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/YWRhemluZy5jb20v/d3AtY29udGVudC91/cGxvYWRzLzIwMjIv/MTIvSGFycnktUG90/dGVyLUJvb2stQ292/ZXJzLVBoaWxvc29w/aGVycy1TdG9uZS11/ay0yLTY2N3gxMDI0/LmpwZw" 
+              alt="Mockup 3" 
+              className="rounded-t-full h-72 w-60 object-cover"
+            />
+            <p className='text-black text-md font-bold'>Prison of Azkban</p>
+            <span className="mt-2 text-gray-800">JK Rowling</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
+export default Hero
