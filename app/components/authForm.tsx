@@ -13,8 +13,7 @@ interface AuthFormProps {
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+ 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
