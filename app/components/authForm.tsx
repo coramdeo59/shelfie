@@ -49,12 +49,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit }) => {
               Password
             </label>
             <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full px-3 py-2 border rounded-md text-gray-700 focus:outline-none focus:ring focus:border-blue-300"
+             
             />
           </div>
           <button
