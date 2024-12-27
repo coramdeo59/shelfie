@@ -19,6 +19,75 @@ const BookCollection = () => {
   const [filter, setFilter] = useState<'All' | 'Reading' | 'Finished'>('All');
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const fetchReadingList = async () => {
+      try {
+        setLoading(true);
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          const { data, error } = await supabase
+            .from('reading_list')
+            .select('*')
+            .eq('user_id', user.id);
+
+          if (error) {
+            console.error('Error fetching reading list:', error);
+          } else {
+            setReadingList(data || []);
+          }
+        }
+      } catch (error) {
+        console.error('An error occurred while fetching the reading list:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReadingList();
+  }, []);
+
+  const handleRemoveBook = async (bookId: number) => {
+    try {
+      const { error } = await supabase
+        .from('reading_list')
+        .delete()
+        .eq('book_id', bookId);
+
+      if (error) {
+        console.error('Error removing book:', error);
+      } else {
+        setReadingList(readingList.filter((book) => book.book_id !== bookId));
+      }
+    } catch (error) {
+      console.error('An error occurred while removing the book:', error);
+    }
+  };
+
+  const handleShowDetails = (bookId: number) => {
+    router.push(`/bookDetail/${bookId}`);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownVisible(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const filteredReadingList = readingList.filter((book) => {
+    if (filter === 'Reading') return book.status === 'reading';
+    if (filter === 'Finished') return book.status === 'finished';
+    return true;
+  });
+
   return (
     <section className="bg-gray-100 min-h-screen px-6 py-10">
       <h2 className="text-3xl font-semibold text-gray-900 mb-6">My Reading List</h2>
@@ -96,71 +165,3 @@ const BookCollection = () => {
 };
 
 export default BookCollection;
-
-  useEffect(() => {
-    const fetchReadingList = async () => {
-      try {
-        setLoading(true);
-        const { data: { user } } = await supabase.auth.getUser();
-        if (user) {
-          const { data, error } = await supabase
-            .from('reading_list')
-            .select('*')
-            .eq('user_id', user.id);
-
-          if (error) {
-            console.error('Error fetching reading list:', error);
-          } else {
-            setReadingList(data || []);
-          }
-        }
-      } catch (error) {
-        console.error('An error occurred while fetching the reading list:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchReadingList();
-  }, []);
-    
-  const handleRemoveBook = async (bookId: number) => {
-    try {
-      const { error } = await supabase
-        .from('reading_list')
-        .delete()
-        .eq('book_id', bookId);
-
-      if (error) {
-        console.error('Error removing book:', error);
-      } else {
-        setReadingList(readingList.filter((book) => book.book_id !== bookId));
-      }
-    } catch (error) {
-      console.error('An error occurred while removing the book:', error);
-    }
-  };
-
-  const handleShowDetails = (bookId: number) => {
-    router.push(`/bookDetail/${bookId}`);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setDropdownVisible(null);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const filteredReadingList = readingList.filter((book) => {
-    if (filter === 'Reading') return book.status === 'reading';
-    if (filter === 'Finished') return book.status === 'finished';
-    return true;
-  });
