@@ -46,3 +46,44 @@ const BookCollection = () => {
 
     fetchReadingList();
   }, []);
+    
+  const handleRemoveBook = async (bookId: number) => {
+    try {
+      const { error } = await supabase
+        .from('reading_list')
+        .delete()
+        .eq('book_id', bookId);
+
+      if (error) {
+        console.error('Error removing book:', error);
+      } else {
+        setReadingList(readingList.filter((book) => book.book_id !== bookId));
+      }
+    } catch (error) {
+      console.error('An error occurred while removing the book:', error);
+    }
+  };
+
+  const handleShowDetails = (bookId: number) => {
+    router.push(`/bookDetail/${bookId}`);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownVisible(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const filteredReadingList = readingList.filter((book) => {
+    if (filter === 'Reading') return book.status === 'reading';
+    if (filter === 'Finished') return book.status === 'finished';
+    return true;
+  });
