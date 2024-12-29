@@ -22,20 +22,24 @@ const BookSection = () => {
 };
 
 useEffect(() => {
-  const loadBooks = async () => {
-    setIsLoading(true);
-    setError('');
-    try {
-      const { books } = await fetchBooks(activeCategory, activeGenre);
-      setBooksData(books);
-    } catch (err) {
-      setError('Failed to load books. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-    setVisibleCount(5);
-  };
-  loadBooks();
-}, [activeCategory, activeGenre]);
+    const fetchBooks = async () => {
+      if (searchTerm.length < 2) {
+        setSearchResults([]);
+        return;
+      }
+  
+      try {
+        const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}`);
+        const data = await res.json();
+        setSearchResults(data.items ? formatBooks(data.items) : []);
+      } catch (err) {
+        setError('Failed to fetch search results. Please try again.');
+      }
+    };
+  
+    const debounceTimeout = setTimeout(fetchBooks, 300);
+    return () => clearTimeout(debounceTimeout);
+  }, [searchTerm]);
+  
 
 export default BookSection;
