@@ -40,6 +40,24 @@ useEffect(() => {
     const debounceTimeout = setTimeout(fetchBooks, 300);
     return () => clearTimeout(debounceTimeout);
   }, [searchTerm]);
+  const formatBooks = (books) =>
+    books.map((book) => {
+      const volumeInfo = book.volumeInfo || {};
+      const imageLinks = volumeInfo.imageLinks || {};
+  
+      const image = imageLinks.large || imageLinks.medium || imageLinks.thumbnail || '/path/to/default-image.jpg';
+  
+      return {
+        id: book.id,
+        title: volumeInfo.title || 'No title available',
+        author: volumeInfo.authors?.join(', ') || 'No author available',
+        image: image,
+        description: volumeInfo.description || 'No description available',
+        genre: volumeInfo.categories || 'No categories available',
+        published_date: volumeInfo.publishedDate || 'No published date available',
+        pageCount: volumeInfo.pageCount || 'No page count available',
+      };
+    });
   
 
 export default BookSection;
