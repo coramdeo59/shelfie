@@ -119,5 +119,20 @@ useEffect(() => {
     />
   </div>
 </div>
-   
+const BookCardSkeleton = () => (
+    <div className="bg-gray-200 p-4 rounded-lg shadow-sm w-full h-80 animate-pulse">
+      <div className="bg-gray-300 h-48 rounded-t-lg mb-4"></div>
+      <div className="h-6 bg-gray-300 w-3/4 mb-2"></div>
+      <div className="h-4 bg-gray-300 w-1/2"></div>
+    </div>
+  );
+  
+  {isLoading ? (
+    Array.from({ length: 5 }).map((_, index) => <BookCardSkeleton key={index} />)
+  ) : (
+    searchResults.length > 0
+      ? searchResults.slice(0, visibleCount).map((book) => <BookCard key={book.id} {...book} />)
+      : booksData.slice(0, visibleCount).map((book) => <BookCard key={book.id} {...book} />)
+  )}
+     
 export default BookSection;
