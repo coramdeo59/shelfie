@@ -21,4 +21,21 @@ const BookSection = () => {
   );
 };
 
+useEffect(() => {
+  const loadBooks = async () => {
+    setIsLoading(true);
+    setError('');
+    try {
+      const { books } = await fetchBooks(activeCategory, activeGenre);
+      setBooksData(books);
+    } catch (err) {
+      setError('Failed to load books. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+    setVisibleCount(5);
+  };
+  loadBooks();
+}, [activeCategory, activeGenre]);
+
 export default BookSection;
