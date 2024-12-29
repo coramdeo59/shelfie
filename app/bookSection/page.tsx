@@ -59,5 +59,40 @@ useEffect(() => {
       };
     });
   
-
+    const genres = [
+        'Fiction',
+        'Fantasy',
+        'Science Fiction',
+        'Mystery',
+        'Nonfiction',
+        'Romance',
+        'Thriller',
+        'Historical Fiction',
+        'Biography',
+        'Self-Help',
+        'Young Adult Fiction',
+        'Horror',
+        'Poetry',
+        'Juvenile Fiction',
+        'Crime Fiction',
+      ];
+      
+      <div className="flex justify-center flex-wrap space-x-4 mb-6">
+        {genres.map((genre) => (
+          <button
+            key={genre}
+            className={`px-3 py-1 rounded text-gray-800 border-2 mb-2 transition-colors duration-300 text-sm hover:bg-black hover:text-white ${
+              activeGenre === genre ? 'border-black border-b-4 text-black' : 'bg-gray-50 text-black'
+            }`}
+            onClick={() => {
+              setActiveGenre(genre);
+              setSearchTerm('');
+              setSearchResults([]);
+            }}
+          >
+            {genre}
+          </button>
+        ))}
+      </div>;
+      
 export default BookSection;
