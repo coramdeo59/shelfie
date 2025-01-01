@@ -15,31 +15,41 @@ const BookDetail = ({ params }) => {
   const [summaryLength, setSummaryLength] = useState('short');
   const [showSummary, setShowSummary] = useState(false);
 
-  useEffect(() => {
-    const fetchBookDetails = async () => {
-      if (!bookId) return;
 
-      const { data, error } = await supabase
-        .from('reading_list')
-        .select('*')
-        .eq('book_id', bookId)
-        .single();
 
-      if (error) {
-        console.error('Error fetching book details:', error);
-      } else {
-        setBookDetails(data);
+const BookDetail = ({ params }) => {
+    
+  
+    const updateBookStatus = async (status) => {
+      if (!bookDetails?.book_id) return;
+      setLoading(true); 
+      try {
+        const { error } = await supabase
+          .from('reading_list')
+          .update({ status })
+          .eq('book_id', bookDetails.book_id);
+  
+        if (error) {
+          console.error('Error updating book status:', error);
+          setMessage('Failed to update book status.'); 
+        } else {
+          setMessage(`Book marked as ${status}.`); 
+          fetchBookDetails(); 
+        }
+      } catch (error) {
+        console.error('Error occurred while updating book status:', error);
+        setMessage('An error occurred while updating the status.'); 
+      } finally {
+        setLoading(false); 
       }
     };
-
-    fetchBookDetails();
-  }, [bookId]);
-
-  return (
-    <div className="max-h-screen flex items-center font-mono justify-center p-6 w-full">
-      <div>Book Detail Component</div>
-    </div>
-  );
+  
+    return (
+      <div className="max-h-screen flex items-center font-mono justify-center p-6 w-full">
+        <div>Book Detail Component</div>
+      </div>
+    );
+  };
 };
 
 export default BookDetail;
