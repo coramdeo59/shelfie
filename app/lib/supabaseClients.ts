@@ -1,1 +1,8 @@
-git add app/sign-up/ ; git commit -m "Add sign-up functionality" ; git push origin main
+
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY!;
+
+export const supabase = createClient(supabaseUrl, supabaseKey);
+
