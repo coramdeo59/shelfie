@@ -11,7 +11,7 @@ import './globals.css'
             Find Your Next Book
           </h1>
           <p className="max-w-2xl mb-6 font-light text-gray-800 lg:mb-8 md:text-lg lg:text-xl">
-            Our most popular and trending <span className="text-black font-bold">SHELF.ie</span> perfect not sure what to read now next reading mood perfect
+            Our most popular and trending <span className="text-black font-bold">SHELF.ie Fuck ALX </span> perfect not sure what to read now next reading mood perfect
           </p>
           <a 
             href="bookSection" // Link to BookSection
