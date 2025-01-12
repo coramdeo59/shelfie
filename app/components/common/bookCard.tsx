@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '@/app/lib/supabaseClients';
 import { FaBookmark } from 'react-icons/fa';
 
 type BookCardProps = {
