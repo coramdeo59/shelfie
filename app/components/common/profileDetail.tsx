@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '@/app/lib/supabaseClients';
 import React, { useEffect, useState } from 'react';
 import { FaPen, FaSignOutAlt } from 'react-icons/fa';
 
